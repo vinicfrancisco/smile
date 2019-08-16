@@ -9,9 +9,6 @@ import { getUserLoggedRequest } from '~/store/sagas/users';
 function* loginRequest(action) {
   try {
     const { data, provider } = action.payload;
-    const url = provider === 'facebook' ? 'auth/v2/users/facebook' : 'auth/v2/users/login';
-    const response = yield call(api.post, url, data);
-    const { jwt } = response.data;
 
     localStorage.setItem('auth_token', jwt);
 

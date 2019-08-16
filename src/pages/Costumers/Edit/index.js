@@ -40,15 +40,7 @@ function Edit(props) {
     try {
       setLoading(true);
 
-      // const response = await api.get(`content/v2/banners/${id}`);
-
-      // const { data } = response.data;
-
-      // setInitialData({
-      //   question: {
-      //     title: data.attributes.title,
-      //   },
-      // });
+      //GET
 
       setLoading(false);
     } catch (error) {
@@ -61,12 +53,7 @@ function Edit(props) {
     setSaving(true);
 
     try {
-      // await api.put(`content/v2/banners/${id}`, {
-      //   ...data,
-      //   question: {
-      //     title: data.question.title,
-      //   },
-      // });
+      //PUT
 
       setSaving(false);
       history.push('/costumers');

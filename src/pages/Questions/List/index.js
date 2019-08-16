@@ -21,22 +21,7 @@ function List(props) {
     try {
       setLoading(true);
 
-      // const response = await api.get(`content/v2/banners?page=${page}&per=25${handleGetFilters()}${order}`);
-
-      // const { data, meta } = response.data;
-
-      // setData(
-      //   data.map(banner => ({
-      //     ...banner,
-      //     attributes: {
-      //       ...banner.attributes,
-      //       publish_at: banner.attributes.publish_at ? moment(banner.attributes.publish_at).format('DD/MM/YYYY') : '-',
-      //       unpublish_at: banner.attributes.unpublish_at
-      //         ? moment(banner.attributes.unpublish_at).format('DD/MM/YYYY')
-      //         : '-',
-      //     },
-      //   })),
-      // );
+      //GET
 
       setLoading(false);
     } catch (error) {
@@ -56,7 +41,7 @@ function List(props) {
         icon: 'warning',
       });
       if (confirm) {
-        // await api.delete(`content/v2/banners/${id}`);
+        //DELETE
         swal('Removido', 'Pergunta removida com sucesso.', 'success');
         loadData();
       }

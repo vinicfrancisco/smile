@@ -34,12 +34,7 @@ function Create(props) {
     try {
       const { history } = props;
 
-      // await api.post('content/v2/banners', {
-      //   ...data,
-      //   question: {
-      //     title: data.question.title,
-      //   },
-      // });
+      //POST
 
       setLoading(false);
       history.push('/questions');
