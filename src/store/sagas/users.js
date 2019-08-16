@@ -7,9 +7,7 @@ import { Creators as UsersActions, Types as UsersTypes } from '~/store/ducks/use
 
 export function* getUserLoggedRequest() {
   try {
-    yield put(UsersActions.getUserLoggedSuccess(response.data));
-    return true;
-    yield put(UsersActions.getUserLoggedFailure());
+    yield put(UsersActions.getUserLoggedSuccess({}));
   } catch (error) {
     localStorage.clear();
     yield put(push('/login'));

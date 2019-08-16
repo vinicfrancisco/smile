@@ -31,24 +31,20 @@ function AppHeader(props) {
 
       <Logo src={LogoImage} />
 
-      {user.data.attributes.avatar.medium_url !== '/images/medium/missing.jpg' && (
-        <>
-          <User showLogout={showLogout} onClick={() => setShowLogout(!showLogout)}>
-            <img src={user.data.attributes.avatar.medium_url} />
+      <User showLogout={showLogout} onClick={() => setShowLogout(!showLogout)}>
+        <img src={LogoImage} />
 
-            <div>
-              <ul>
-                <Item>
-                  <button onClick={() => handleLogout()}>
-                    <FaPowerOff color={colors.darkGray} size={14} />
-                    Sair
-                  </button>
-                </Item>
-              </ul>
-            </div>
-          </User>
-        </>
-      )}
+        <div>
+          <ul>
+            <Item>
+              <button onClick={() => handleLogout()}>
+                <FaPowerOff color={colors.darkGray} size={14} />
+                Sair
+              </button>
+            </Item>
+          </ul>
+        </div>
+      </User>
     </Container>
   );
 }
