@@ -88,6 +88,6 @@ export const Container = styled.div`
 `;
 
 export const Logo = styled.img`
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 240px;
 `;

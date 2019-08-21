@@ -17,9 +17,9 @@ export const Container = styled.div`
 `;
 
 export const Logo = styled.img`
-  height: 40px;
+  height: 50px;
   margin-bottom: 5px;
-  width: 40px;
+  width: 150px;
 `;
 
 export const User = styled.button`

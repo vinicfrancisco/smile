@@ -48,9 +48,11 @@ export const Container = styled.div`
 `;
 
 export const Logo = styled.img`
+  bottom: 10px;
   height: 80px;
-  margin-top: 10px;
-  width: 80px;
+  margin-top: 30px;
+  position: relative;
+  width: 240px;
 `;
 
 export const LinkLogo = styled(Link)`

@@ -36,6 +36,5 @@ export const Button = styled(ComponentButton)`
 
 export const Logo = styled.img`
   height: 100px;
-  margin-left: 125px;
-  width: 100px;
+  width: 300px;
 `;
