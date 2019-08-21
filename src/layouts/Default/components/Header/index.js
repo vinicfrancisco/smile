@@ -7,6 +7,7 @@ import { Menu } from './components';
 import { Button } from '~/components';
 
 import LogoImage from '~/assets/images/logo.png';
+import Perfil from '~/assets/images/perfil.jpg';
 
 import { Container, LinkLogo, Navigation, User, Logo } from './styles';
 
@@ -30,7 +31,7 @@ function Header(props) {
         </Navigation>
 
         <User>
-          <img src={LogoImage} />
+          <img src={Perfil} />
           <span>Vini</span>
 
           <Button color="error" onClick={() => handleLogout()}>
