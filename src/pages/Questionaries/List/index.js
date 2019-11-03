@@ -101,11 +101,11 @@ function List(props) {
               <tbody>
                 {data.map(questionary => (
                   <Table.Row key={questionary.id}>
-                    <Table.Column large>{questionary.name}</Table.Column>
+                    <Table.Column large>{questionary.title}</Table.Column>
 
                     <Table.Column large>{moment(questionary.created_at).format('DD/MM/YYYY')}</Table.Column>
 
-                    <Table.Column large>{questionary.observation}</Table.Column>
+                    <Table.Column large>{questionary.description}</Table.Column>
 
                     <Table.Column right>
                       <Actions>

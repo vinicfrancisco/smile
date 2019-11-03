@@ -81,16 +81,20 @@ function List(props) {
                 <Table.Row>
                   <Table.Column head>Nome</Table.Column>
 
+                  <Table.Column head>Questionário</Table.Column>
+
                   <Table.Column head />
                 </Table.Row>
               </thead>
               <tbody>
                 {data.map(question => {
-                  const { id, title } = question;
+                  const { id, title, questionary } = question;
 
                   return (
                     <Table.Row key={id}>
                       <Table.Column>{title}</Table.Column>
+
+                      <Table.Column>{questionary.title}</Table.Column>
 
                       <Table.Column right>
                         <Actions>
