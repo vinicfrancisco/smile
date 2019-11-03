@@ -40,8 +40,15 @@ function Edit(props) {
     try {
       setLoading(true);
 
-      //GET
+      const response = await api.get(`questions/${id}`);
 
+      const { data } = response;
+
+      setInitialData({
+        question: {
+          title: data[0].title,
+        },
+      });
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -53,7 +60,9 @@ function Edit(props) {
     setSaving(true);
 
     try {
-      //PUT
+      await api.put(`questions/${id}`, {
+        title: data.question.title,
+      });
 
       setSaving(false);
       history.push('/questions');

@@ -34,7 +34,10 @@ function Create(props) {
     try {
       const { history } = props;
 
-      //POST
+      await api.post('questions', {
+        title: data.question.title,
+        questionary_id: 1,
+      });
 
       setLoading(false);
       history.push('/questions');
