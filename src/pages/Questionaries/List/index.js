@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 import { api } from '~/services';
 import queryString from 'query-string';
 
@@ -8,7 +9,7 @@ import { Breadcrumbs, Button, Page, Panel, Table, Loading, Pagination } from '~/
 
 import { Container, Actions } from './styles';
 
-const breadcrumbs = [{ name: 'inicio', to: '/' }, { name: 'clientes', to: '' }];
+const breadcrumbs = [{ name: 'inicio', to: '/' }, { name: 'questionários', to: '' }];
 
 function List(props) {
   const { location } = props;
@@ -30,7 +31,7 @@ function List(props) {
     try {
       setLoading(true);
 
-      const response = await api.get(`users?page=${page}&per=25`);
+      const response = await api.get(`questionaries?page=${page}&per=25`);
       const { data, total } = response.data;
 
       setData(data);
@@ -45,7 +46,7 @@ function List(props) {
     try {
       const confirm = await swal({
         title: 'Deseja remover?',
-        text: 'Você tem certeza de que deseja remover o cliente?',
+        text: 'Você tem certeza de que deseja remover o questionário?',
         buttons: {
           cancel: 'Cancelar',
           confirm: 'Confirmar',
@@ -53,12 +54,12 @@ function List(props) {
         icon: 'warning',
       });
       if (confirm) {
-        await api.delete(`users/${id}`);
-        swal('Removido', 'Cliente removido com sucesso.', 'success');
+        await api.delete(`questionaries/${id}`);
+        swal('Removido', 'Questionário removido com sucesso.', 'success');
         loadData();
       }
     } catch (error) {
-      swal('Ops, algo deu errado', 'Não foi possível remover o cliente.', 'error');
+      swal('Ops, algo deu errado', 'Não foi possível remover o questionário.', 'error');
     }
   }
 
@@ -68,7 +69,7 @@ function List(props) {
         <Page.Header>
           <Page.Title>
             <Breadcrumbs data={breadcrumbs} />
-            <h2>Clientes</h2>
+            <h2>Questionários</h2>
           </Page.Title>
         </Page.Header>
 
@@ -84,27 +85,31 @@ function List(props) {
                 <Table.Row>
                   <Table.Column head>Nome</Table.Column>
 
-                  <Table.Column head>E-mail</Table.Column>
+                  <Table.Column head>Data de criação</Table.Column>
+
+                  <Table.Column head>Observação</Table.Column>
 
                   <Table.Column head />
                 </Table.Row>
               </thead>
               <tbody>
-                {data.map(user => (
-                  <Table.Row key={user.id}>
-                    <Table.Column large>{user.username}</Table.Column>
+                {data.map(questionary => (
+                  <Table.Row key={questionary.id}>
+                    <Table.Column large>{questionary.name}</Table.Column>
 
-                    <Table.Column large>{user.email}</Table.Column>
+                    <Table.Column large>{moment(questionary.created_at).format('DD/MM/YYYY')}</Table.Column>
+
+                    <Table.Column large>{questionary.observation}</Table.Column>
 
                     <Table.Column right>
                       <Actions>
                         <Button icon>
-                          <Link to={`/costumers/${user.id}/edit`}>
+                          <Link to={`/questionaries/${questionary.id}/edit`}>
                             <FaPencilAlt size={10} />
                           </Link>
                         </Button>
 
-                        <Button icon onClick={() => handleDelete(user.id)}>
+                        <Button icon onClick={() => handleDelete(questionary.id)}>
                           <FaTrashAlt size={10} />
                         </Button>
                       </Actions>

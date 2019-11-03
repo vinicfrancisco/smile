@@ -19,6 +19,10 @@ const Routes = () => {
         <PrivateRoute exact path="/questions/create" component={Pages.Questions.Create} />
         <PrivateRoute exact path="/questions/:id/edit" component={Pages.Questions.Edit} />
 
+        <PrivateRoute exact path="/questionaries" component={Pages.Questionaries.List} />
+        {/* <PrivateRoute exact path="/questionaries/create" component={Pages.Questionaries.Create} /> */}
+        {/* <PrivateRoute exact path="/questionaries/:id/edit" component={Pages.Questionaries.Edit} /> */}
+
         <PrivateRoute exact path="/costumers" component={Pages.Costumers.List} />
         {/* <PrivateRoute exact path="/questions/create" component={Pages.Questions.Create} /> */}
         {/* <PrivateRoute exact path="/questions/:id/edit" component={Pages.Questions.Edit} /> */}
