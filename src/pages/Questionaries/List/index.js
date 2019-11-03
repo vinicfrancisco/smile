@@ -71,6 +71,12 @@ function List(props) {
             <Breadcrumbs data={breadcrumbs} />
             <h2>Questionários</h2>
           </Page.Title>
+
+          <Page.Actions>
+            <Button>
+              <Link to="/questionaries/create">Novo questionário</Link>
+            </Button>
+          </Page.Actions>
         </Page.Header>
 
         {loading && !data.length ? (
@@ -87,7 +93,7 @@ function List(props) {
 
                   <Table.Column head>Data de criação</Table.Column>
 
-                  <Table.Column head>Observação</Table.Column>
+                  <Table.Column head>Descrição</Table.Column>
 
                   <Table.Column head />
                 </Table.Row>
