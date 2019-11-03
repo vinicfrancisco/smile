@@ -19,6 +19,10 @@ function Menu(props) {
         <Link to="/">Dashboard</Link>
       </Title>
 
+      <Title active={active === 'questionaries'}>
+        <Link to="/questionaries">Questionarios</Link>
+      </Title>
+
       <Title active={active === 'questions'}>
         <Link to="/questions">Perguntas</Link>
       </Title>
@@ -26,6 +30,8 @@ function Menu(props) {
       <Title active={active === 'costumers'}>
         <Link to="/costumers">Clientes</Link>
       </Title>
+
+      
     </Nav>
   );
 }

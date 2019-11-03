@@ -18,6 +18,10 @@ const Routes = () => {
         <PrivateRoute exact path="/questions" component={Pages.Questions.List} />
         <PrivateRoute exact path="/questions/create" component={Pages.Questions.Create} />
         <PrivateRoute exact path="/questions/:id/edit" component={Pages.Questions.Edit} />
+
+        <PrivateRoute exact path="/costumers" component={Pages.Costumers.List} />
+        {/* <PrivateRoute exact path="/questions/create" component={Pages.Questions.Create} /> */}
+        {/* <PrivateRoute exact path="/questions/:id/edit" component={Pages.Questions.Edit} /> */}
       </Switch>
     </ConnectedRouter>
   );

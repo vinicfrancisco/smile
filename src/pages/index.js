@@ -1,6 +1,7 @@
 import * as Auth from './Auth';
+import * as Costumers from './Costumers';
 import * as Questions from './Questions';
 
 import Dashboard from './Dashboard';
 
-export { Auth, Dashboard, Questions };
+export { Auth, Costumers, Dashboard, Questions };
