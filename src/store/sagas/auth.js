@@ -10,29 +10,14 @@ function* loginRequest(action) {
     const { data } = action.payload;
     const url = '/login';
     const response = yield call(api.post, url, data);
-    const { jwt } = response.data;
+    const { token } = response.data;
 
-    localStorage.setItem('auth_token', jwt);
-
-    if (!success) {
-      yield put(AuthActions.loginFailure());
-
-      return;
-    }
+    localStorage.setItem('auth_token', token);
 
     yield put(push('/'));
     yield put(AuthActions.loginSuccess());
   } catch (error) {
-    if (error.response !== undefined) {
-      const { message } = error.response.data.error;
-
-      if (message) {
-        yield call(swal, 'Ops, algo deu errado', message, 'error');
-      }
-    } else {
-      yield call(swal, 'Ops, algo deu errado', 'Não foi possível efetuar o login, tente novamente!', 'error');
-    }
-
+    yield call(swal, 'Ops, algo deu errado', 'Não foi possível efetuar o login, tente novamente!', 'error');
     yield put(AuthActions.loginFailure());
   }
 }

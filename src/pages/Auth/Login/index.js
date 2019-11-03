@@ -9,7 +9,7 @@ import { Loading } from '~/components';
 import { Container, Title, Button, Form, Logo } from './styles';
 
 const schema = Yup.object().shape({
-  username: Yup.string()
+  email: Yup.string()
     .email()
     .required(),
   password: Yup.string().required(),
@@ -31,7 +31,7 @@ function Login() {
 
       <Form schema={schema} onSubmit={handleLogin}>
         <Form.Field>
-          <Form.Input name="username" placeholder="Seu e-mail" autoComplete="off" />
+          <Form.Input name="email" placeholder="Seu e-mail" autoComplete="off" />
         </Form.Field>
 
         <Form.Field>
@@ -41,6 +41,10 @@ function Login() {
         <Form.Buttons vertical>
           <Button type="submit" disabled={login.loading} large>
             {login.loading ? <Loading type="button" /> : 'Login'}
+          </Button>
+
+          <Button type="button" outline large>
+            Cadastre-se
           </Button>
         </Form.Buttons>
       </Form>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Creators as AuthActions } from '~/store/ducks/auth';
 
 import { Menu } from './components';
@@ -13,7 +13,6 @@ import { Container, LinkLogo, Navigation, User, Logo } from './styles';
 
 function Header(props) {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.users.logged);
 
   function handleLogout() {
     dispatch(AuthActions.logoutRequest());

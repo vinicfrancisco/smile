@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { Creators as AuthActions } from '~/store/ducks/auth';
 import { Creators as UsersActions } from '~/store/ducks/users';
 
-import { Header, AppHeader, Loading } from './components';
+import { Header, Loading } from './components';
 
 import { global as Global } from '~/assets/styles';
 import { Container } from './styles';
@@ -44,7 +43,6 @@ export default Page =>
           <Container logouting={logout.loading}>
             <div>
               <Header {...props} />
-              <AppHeader {...props} />
 
               {done && <Page {...props} />}
             </div>

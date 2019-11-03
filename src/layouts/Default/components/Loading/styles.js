@@ -81,13 +81,13 @@ export const Container = styled.div`
         `}
 
       > svg {
-        color: ${colors.darkPink};
+        color: ${colors.darkBlue};
       }
     }
   }
 `;
 
 export const Logo = styled.img`
-  height: 80px;
-  width: 240px;
+  height: 100px;
+  width: 200px;
 `;
