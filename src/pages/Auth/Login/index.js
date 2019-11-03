@@ -36,7 +36,7 @@ function Login() {
   }
 
   function handleSignUp(data) {
-    dispatch(AuthActions.registerRequest(data));
+    dispatch(AuthActions.signUpRequest(data));
   }
 
   return (

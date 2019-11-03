@@ -3,6 +3,10 @@ export const Types = {
   LOGIN_SUCCESS: 'auth/LOGIN_SUCCESS',
   LOGIN_FAILURE: 'auth/LOGIN_FAILURE',
 
+  SIGNUP_REQUEST: 'auth/SIGNUP_REQUEST',
+  SIGNUP_SUCCESS: 'auth/SIGNUP_SUCCESS',
+  SIGNUP_FAILURE: 'auth/SIGNUP_FAILURE',
+
   LOGOUT_REQUEST: 'auth/LOGOUT_REQUEST',
   LOGOUT_SUCCESS: 'auth/LOGOUT_SUCCESS',
   LOGOUT_FAILURE: 'auth/LOGOUT_FAILURE',
@@ -10,6 +14,10 @@ export const Types = {
 
 const initialState = {
   login: {
+    loading: false,
+  },
+
+  register: {
     loading: false,
   },
 
@@ -37,6 +45,23 @@ export default function auth(state = initialState, action) {
           loading: false,
         },
       };
+    case Types.SIGNUP_REQUEST:
+      return {
+        ...state,
+        register: {
+          ...state.register,
+          loading: true,
+        },
+      };
+    case Types.SIGNUP_SUCCESS:
+    case Types.SIGNUP_FAILURE:
+      return {
+        ...state,
+        register: {
+          ...state.register,
+          loading: false,
+        },
+      };
     case Types.LOGOUT_REQUEST:
       return {
         ...state,
@@ -60,9 +85,9 @@ export default function auth(state = initialState, action) {
 }
 
 export const Creators = {
-  loginRequest: (data, provider = 'local') => ({
+  loginRequest: data => ({
     type: Types.LOGIN_REQUEST,
-    payload: { data, provider },
+    payload: { data },
   }),
 
   loginSuccess: () => ({
@@ -71,6 +96,19 @@ export const Creators = {
 
   loginFailure: () => ({
     type: Types.LOGIN_FAILURE,
+  }),
+
+  signUpRequest: data => ({
+    type: Types.SIGNUP_REQUEST,
+    payload: { data },
+  }),
+
+  signUpSuccess: () => ({
+    type: Types.SIGNUP_SUCCESS,
+  }),
+
+  signUpFailure: () => ({
+    type: Types.SIGNUP_FAILURE,
   }),
 
   logoutRequest: () => ({
