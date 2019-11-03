@@ -14,7 +14,7 @@ function List(props) {
   const { location } = props;
   const [data, setData] = useState([]);
   const [page, setPage] = useState(() => queryString.parse(location.search).page || 1);
-  // const [total, setTotal] = useState(1);
+  const [total, setTotal] = useState(1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,12 +30,11 @@ function List(props) {
     try {
       setLoading(true);
 
-      const response = await api.get('users');
-      const { data } = response;
-      // const { data, meta } = response.data;
+      const response = await api.get(`users?page=${page}&per=25`);
+      const { data, total } = response.data;
 
       setData(data);
-      // setTotal(meta.total_pages);
+      setTotal(parseInt(total));
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -117,7 +116,7 @@ function List(props) {
           </Panel>
         )}
 
-        {/* <Pagination total={total} {...props} /> */}
+        <Pagination total={total} {...props} />
       </Container>
     </Page>
   );
