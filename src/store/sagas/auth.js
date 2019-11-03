@@ -1,26 +1,38 @@
-import { call, put, takeLatest, delay, select } from 'redux-saga/effects';
+import { call, put, takeLatest, delay } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import { api } from '~/services';
 import swal from 'sweetalert';
 
 import { Creators as AuthActions, Types as AuthTypes } from '~/store/ducks/auth';
-import { getUserLoggedRequest } from '~/store/sagas/users';
 
 function* loginRequest(action) {
   try {
-    // localStorage.setItem('auth_token', 'teste');
+    const { data } = action.payload;
+    const url = '/login';
+    const response = yield call(api.post, url, data);
+    const { jwt } = response.data;
 
-    // const success = yield call(getUserLoggedRequest);
+    localStorage.setItem('auth_token', jwt);
 
-    // if (!success) {
-    // yield put(AuthActions.loginFailure());
+    if (!success) {
+      yield put(AuthActions.loginFailure());
 
-    // return;
-    // }
+      return;
+    }
 
     yield put(push('/'));
     yield put(AuthActions.loginSuccess());
   } catch (error) {
+    if (error.response !== undefined) {
+      const { message } = error.response.data.error;
+
+      if (message) {
+        yield call(swal, 'Ops, algo deu errado', message, 'error');
+      }
+    } else {
+      yield call(swal, 'Ops, algo deu errado', 'Não foi possível efetuar o login, tente novamente!', 'error');
+    }
+
     yield put(AuthActions.loginFailure());
   }
 }

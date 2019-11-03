@@ -65,6 +65,8 @@ export const Navigation = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
+  left: -30px;
+  position: relative;
 `;
 
 export const User = styled.div`
