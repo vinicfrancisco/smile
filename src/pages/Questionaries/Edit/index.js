@@ -61,8 +61,8 @@ function Edit(props) {
 
     try {
       await api.put(`questionaries/${id}`, {
-        title: data.title,
-        description: data.description,
+        title: data.questionary.title,
+        description: data.questionary.description,
       });
 
       setSaving(false);

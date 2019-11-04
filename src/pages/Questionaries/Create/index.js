@@ -36,8 +36,8 @@ function Create(props) {
       const { history } = props;
 
       await api.post('questionaries', {
-        title: data.category.title,
-        description: data.category.description,
+        title: data.questionary.title,
+        description: data.questionary.description,
       });
 
       setSaving(false);
