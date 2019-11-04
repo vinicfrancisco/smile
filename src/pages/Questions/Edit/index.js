@@ -17,6 +17,7 @@ const breadcrumbs = [
 const schema = Yup.object().shape({
   question: Yup.object().shape({
     title: Yup.string().required(),
+    questionary_id: Yup.string().required(),
   }),
 });
 
@@ -29,6 +30,7 @@ function Edit(props) {
   const [initialData, setInitialData] = useState({
     question: {
       title: '',
+      questionary_id: '',
     },
   });
 
@@ -47,6 +49,7 @@ function Edit(props) {
       setInitialData({
         question: {
           title: data[0].title,
+          questionary_id: { value: data[0].questionary_id, label: data[0].questionary.title },
         },
       });
       setQuestionId(data[0].id);
@@ -63,6 +66,7 @@ function Edit(props) {
     try {
       await api.put(`questions/${id}`, {
         title: data.question.title,
+        questionary_id: data.question.questionary_id,
       });
 
       setSaving(false);

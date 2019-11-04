@@ -17,6 +17,7 @@ const breadcrumbs = [
 const schema = Yup.object().shape({
   question: Yup.object().shape({
     title: Yup.string().required(),
+    questionary_id: Yup.string().required(),
   }),
 });
 
@@ -25,6 +26,7 @@ function Create(props) {
   const [initialData, setInitialData] = useState({
     question: {
       title: '',
+      questionary_id: '',
     },
   });
 
@@ -36,7 +38,7 @@ function Create(props) {
 
       await api.post('questions', {
         title: data.question.title,
-        questionary_id: 2,
+        questionary_id: data.question.questionary_id,
       });
 
       setLoading(false);
