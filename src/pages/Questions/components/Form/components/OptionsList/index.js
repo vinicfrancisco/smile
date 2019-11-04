@@ -17,12 +17,12 @@ const schema = Yup.object().shape({
 function ProductsList(props) {
   const { id } = props;
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    id !== '' && loadData();
+    !!id && loadData();
   }, [id]);
 
   async function loadData() {
@@ -79,13 +79,13 @@ function ProductsList(props) {
             <Grid.Column num={2}>
               <Form.Field>
                 <Form.Label>Score</Form.Label>
-                <Form.Input name="score" type="number" placeholder="Pontuação" />
+                <Form.Input name="score" type="number" placeholder="Digite o score" />
               </Form.Field>
             </Grid.Column>
 
             <Grid.Column num={2}>
               <Buttons>
-                <Button type="submit" disabled={loadingSubmit}>
+                <Button type="submit" disabled={loadingSubmit || id === undefined}>
                   {loadingSubmit ? <Loading type="button" /> : 'Adicionar'}
                 </Button>
               </Buttons>
@@ -95,42 +95,44 @@ function ProductsList(props) {
       </Form>
 
       {data.length > 0 && (
-        <Length>
-          <span>{data.length} opções adicionadas</span>
-        </Length>
+        <>
+          <Length>
+            <span>{data.length} opções adicionadas</span>
+          </Length>
+          <Panel>
+            <Table shadowDisabled>
+              <thead>
+                <tr>
+                  <Table.Column head>Título</Table.Column>
+                  <Table.Column head>Score</Table.Column>
+                  <Table.Column head />
+                </tr>
+              </thead>
+              <tbody>
+                {loading ? (
+                  <Loading table size={40} />
+                ) : (
+                  <>
+                    {data.map(option => (
+                      <Table.Row key={String(option.id)}>
+                        <StyledTd>{option.title}</StyledTd>
+
+                        <Table.Column>{option.score}</Table.Column>
+
+                        <Table.Column right>
+                          <Button icon onClick={() => handleDelete(option.id)}>
+                            <FaTrashAlt size={10} />
+                          </Button>
+                        </Table.Column>
+                      </Table.Row>
+                    ))}
+                  </>
+                )}
+              </tbody>
+            </Table>
+          </Panel>
+        </>
       )}
-      <Panel>
-        <Table shadowDisabled>
-          <thead>
-            <tr>
-              <Table.Column head>Título</Table.Column>
-              <Table.Column head>Score</Table.Column>
-              <Table.Column head />
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
-              <Loading table size={40} />
-            ) : (
-              <>
-                {data.map(option => (
-                  <Table.Row key={String(option.id)}>
-                    <StyledTd>{option.title}</StyledTd>
-
-                    <Table.Column>{option.score}</Table.Column>
-
-                    <Table.Column right>
-                      <Button icon onClick={() => handleDelete(option.id)}>
-                        <FaTrashAlt size={10} />
-                      </Button>
-                    </Table.Column>
-                  </Table.Row>
-                ))}
-              </>
-            )}
-          </tbody>
-        </Table>
-      </Panel>
     </>
   );
 }
