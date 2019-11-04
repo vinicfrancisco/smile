@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { colors } from '~/assets/styles';
 
-export default styled.button.attrs({ type: 'button' })`
+export default styled.button`
   align-items: center;
   background: ${props => (props.color ? colors[props.color] : colors.primary)};
   border: 0;

@@ -36,7 +36,7 @@ function Create(props) {
 
       await api.post('questions', {
         title: data.question.title,
-        questionary_id: 1,
+        questionary_id: 2,
       });
 
       setLoading(false);

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '~/services';
 import * as Yup from 'yup';
-import moment from 'moment';
 
 import { URLParser } from '~/common';
 import { Breadcrumbs, Page, Loading } from '~/components';
@@ -26,6 +25,7 @@ function Edit(props) {
   const { history } = props;
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [questionId, setQuestionId] = useState('');
   const [initialData, setInitialData] = useState({
     question: {
       title: '',
@@ -49,6 +49,7 @@ function Edit(props) {
           title: data[0].title,
         },
       });
+      setQuestionId(data[0].id);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -88,7 +89,7 @@ function Edit(props) {
           {loading ? (
             <Loading container size={40} />
           ) : (
-            <Form data={initialData} schema={schema} saving={saving} onSubmit={handleSubmit} />
+            <Form id={questionId} data={initialData} schema={schema} saving={saving} onSubmit={handleSubmit} />
           )}
         </Panel>
       </Container>
