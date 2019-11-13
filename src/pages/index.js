@@ -1,8 +1,7 @@
-import * as Auth from './Auth';
-import * as Costumers from './Costumers';
-import * as Questionaries from './Questionaries';
-import * as Questions from './Questions';
+import * as Auth from "./Auth";
+import * as Pacients from "./Pacients";
+import * as Questionaries from "./Questionaries";
 
-import Dashboard from './Dashboard';
+import Dashboard from "./Dashboard";
 
-export { Auth, Costumers, Dashboard, Questionaries, Questions };
+export { Auth, Pacients, Dashboard, Questionaries };

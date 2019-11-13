@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { URLParser } from '~/common';
+import { URLParser } from "~/common";
 
-import { Nav, Title, Link } from './styles';
+import { Nav, Title, Link } from "./styles";
 
 function Menu(props) {
   const { location } = props;
@@ -10,28 +10,21 @@ function Menu(props) {
 
   useEffect(() => {
     setActive(URLParser(location));
-    console.log(URLParser(location));
   }, [location]);
 
   return (
     <Nav>
-      <Title active={active === ''}>
+      <Title active={active === ""}>
         <Link to="/">Dashboard</Link>
       </Title>
 
-      <Title active={active === 'questionaries'}>
+      <Title active={active === "questionaries"}>
         <Link to="/questionaries">Questionarios</Link>
       </Title>
 
-      <Title active={active === 'questions'}>
-        <Link to="/questions">Perguntas</Link>
+      <Title active={active === "pacients"}>
+        <Link to="/pacients">Pacientes</Link>
       </Title>
-
-      <Title active={active === 'costumers'}>
-        <Link to="/costumers">Clientes</Link>
-      </Title>
-
-      
     </Nav>
   );
 }

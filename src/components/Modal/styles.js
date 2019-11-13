@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { colors, device } from '~/assets/styles';
+import styled from "styled-components";
+import { colors, device } from "~/assets/styles";
 
 export const Container = styled.div`
   background: rgba(0, 0, 0, 0.6);
@@ -41,7 +41,7 @@ export const Box = styled.div`
 `;
 
 export const Title = styled.h3`
-  color: ${colors.darkPink};
+  color: ${colors.orange};
   font-size: 32px;
   font-weight: 800;
   line-height: 37px;

@@ -1,6 +1,12 @@
-import styled from 'styled-components';
-import { colors } from '~/assets/styles';
-import { Table } from '~/components';
+import styled from "styled-components";
+import { colors } from "~/assets/styles";
+import { Table } from "~/components";
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+`;
 
 export const Length = styled.div`
   display: flex;

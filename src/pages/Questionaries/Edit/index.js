@@ -1,36 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { api } from '~/services';
-import * as Yup from 'yup';
+import React, { useState, useEffect } from "react";
+import { api } from "~/services";
+import * as Yup from "yup";
 
-import { URLParser } from '~/common';
-import { Breadcrumbs, Page, Loading } from '~/components';
-import { Form } from '~/pages/Questionaries/components';
+import { URLParser } from "~/common";
+import { Breadcrumbs, Page, Loading } from "~/components";
+import { Form } from "~/pages/Questionaries/components";
 
-import { Container, Panel } from './styles';
+import { Container, Panel } from "./styles";
 
 const breadcrumbs = [
-  { name: 'inicio', to: '/' },
-  { name: 'questionários', to: '/questionaries' },
-  { name: 'novo questionário', to: '' },
+  { name: "inicio", to: "/" },
+  { name: "questionários", to: "/questionaries" },
+  { name: "novo questionário", to: "" }
 ];
 
 const schema = Yup.object().shape({
   questionary: Yup.object().shape({
     title: Yup.string().required(),
-    description: Yup.string().required(),
-  }),
+    description: Yup.string().required()
+  })
 });
 
 function Edit(props) {
-  const { id } = URLParser(props.location, '/questionaries/:id/edit');
+  const { id } = URLParser(props.location, "/questionaries/:id/edit");
   const { history } = props;
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [initialData, setInitialData] = useState({
     questionary: {
-      title: '',
-      description: '',
-    },
+      title: "",
+      description: ""
+    }
   });
 
   useEffect(() => {
@@ -45,14 +45,14 @@ function Edit(props) {
 
       setInitialData({
         questionary: {
-          title: data.title,
-          description: data.description,
-        },
+          title: data[0].title,
+          description: data[0].description
+        }
       });
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      swal('Ops, algo deu errado', 'Falha ao carregar questionário', 'error');
+      swal("Ops, algo deu errado", "Falha ao carregar questionário", "error");
     }
   }
 
@@ -62,15 +62,15 @@ function Edit(props) {
     try {
       await api.put(`questionaries/${id}`, {
         title: data.questionary.title,
-        description: data.questionary.description,
+        description: data.questionary.description
       });
 
       setSaving(false);
-      history.push('/questionaries');
-      swal('Editado', 'Questionário editada com sucesso', 'success');
+      history.push("/questionaries");
+      swal("Editado", "Questionário editada com sucesso", "success");
     } catch (error) {
       setSaving(false);
-      swal('Ops, algo deu errado', 'Falha ao editar questionário', 'error');
+      swal("Ops, algo deu errado", "Falha ao editar questionário", "error");
     }
   }
 
@@ -89,7 +89,13 @@ function Edit(props) {
           {loading ? (
             <Loading container size={40} />
           ) : (
-            <Form data={initialData} schema={schema} saving={saving} onSubmit={handleSubmit} />
+            <Form
+              id={id}
+              data={initialData}
+              schema={schema}
+              saving={saving}
+              onSubmit={handleSubmit}
+            />
           )}
         </Panel>
       </Container>

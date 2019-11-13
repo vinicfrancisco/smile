@@ -1,19 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { api } from '~/services';
-import queryString from 'query-string';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { api } from "~/services";
+import queryString from "query-string";
 
-import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
-import { Breadcrumbs, Button, Page, Panel, Table, Loading, Pagination } from '~/components';
+import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import {
+  Breadcrumbs,
+  Button,
+  Page,
+  Panel,
+  Table,
+  Loading,
+  Pagination
+} from "~/components";
 
-import { Container, Actions } from './styles';
+import { Container, Actions } from "./styles";
 
-const breadcrumbs = [{ name: 'inicio', to: '/' }, { name: 'clientes', to: '' }];
+const breadcrumbs = [
+  { name: "inicio", to: "/" },
+  { name: "clientes", to: "" }
+];
 
 function List(props) {
   const { location } = props;
   const [data, setData] = useState([]);
-  const [page, setPage] = useState(() => queryString.parse(location.search).page || 1);
+  const [page, setPage] = useState(
+    () => queryString.parse(location.search).page || 1
+  );
   const [total, setTotal] = useState(1);
   const [loading, setLoading] = useState(true);
 
@@ -44,21 +57,25 @@ function List(props) {
   async function handleDelete(id) {
     try {
       const confirm = await swal({
-        title: 'Deseja remover?',
-        text: 'Você tem certeza de que deseja remover o cliente?',
+        title: "Deseja remover?",
+        text: "Você tem certeza de que deseja remover o cliente?",
         buttons: {
-          cancel: 'Cancelar',
-          confirm: 'Confirmar',
+          cancel: "Cancelar",
+          confirm: "Confirmar"
         },
-        icon: 'warning',
+        icon: "warning"
       });
       if (confirm) {
         await api.delete(`users/${id}`);
-        swal('Removido', 'Cliente removido com sucesso.', 'success');
+        swal("Removido", "Cliente removido com sucesso.", "success");
         loadData();
       }
     } catch (error) {
-      swal('Ops, algo deu errado', 'Não foi possível remover o cliente.', 'error');
+      swal(
+        "Ops, algo deu errado",
+        "Não foi possível remover o cliente.",
+        "error"
+      );
     }
   }
 
@@ -68,7 +85,7 @@ function List(props) {
         <Page.Header>
           <Page.Title>
             <Breadcrumbs data={breadcrumbs} />
-            <h2>Clientes</h2>
+            <h2>Pacientes</h2>
           </Page.Title>
         </Page.Header>
 
