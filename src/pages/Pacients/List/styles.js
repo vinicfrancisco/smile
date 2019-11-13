@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   align-self: center;
@@ -8,6 +8,13 @@ export const Container = styled.div`
 `;
 
 export const Actions = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+
+export const Buttons = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;

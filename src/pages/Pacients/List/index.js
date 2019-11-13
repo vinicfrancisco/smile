@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { api } from "~/services";
-import queryString from "query-string";
 
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import {
@@ -11,43 +10,35 @@ import {
   Panel,
   Table,
   Loading,
-  Pagination
+  Modal,
+  Form
 } from "~/components";
 
-import { Container, Actions } from "./styles";
+import { Container, Actions, Buttons } from "./styles";
 
 const breadcrumbs = [
   { name: "inicio", to: "/" },
-  { name: "clientes", to: "" }
+  { name: "pacientes", to: "" }
 ];
 
 function List(props) {
-  const { location } = props;
   const [data, setData] = useState([]);
-  const [page, setPage] = useState(
-    () => queryString.parse(location.search).page || 1
-  );
-  const [total, setTotal] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [addPacient, setAddPacient] = useState(false);
 
   useEffect(() => {
     loadData();
-  }, [page]);
-
-  useEffect(() => {
-    const newPage = queryString.parse(location.search).page || 1;
-    page !== newPage ? setPage(() => newPage) : page;
-  }, [location]);
+  }, []);
 
   async function loadData() {
     try {
       setLoading(true);
 
-      const response = await api.get(`users?page=${page}&per=25`);
-      const { data, total } = response.data;
+      const response = await api.get(`pacients?page=1&per=100`);
+      const { data } = response;
 
       setData(data);
-      setTotal(parseInt(total));
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -58,7 +49,7 @@ function List(props) {
     try {
       const confirm = await swal({
         title: "Deseja remover?",
-        text: "Você tem certeza de que deseja remover o cliente?",
+        text: "Você tem certeza de que deseja remover o paciente?",
         buttons: {
           cancel: "Cancelar",
           confirm: "Confirmar"
@@ -66,76 +57,125 @@ function List(props) {
         icon: "warning"
       });
       if (confirm) {
-        await api.delete(`users/${id}`);
-        swal("Removido", "Cliente removido com sucesso.", "success");
+        await api.delete(`pacients/${id}`);
+        swal("Removido", "Paciente removido com sucesso.", "success");
         loadData();
       }
     } catch (error) {
       swal(
         "Ops, algo deu errado",
-        "Não foi possível remover o cliente.",
+        "Não foi possível remover o paciente.",
         "error"
       );
     }
   }
 
+  async function handleAddPacient(data) {
+    try {
+      setSaving(true);
+      await api.post("/pacients", data);
+
+      setSaving(false);
+      swal("Sucesso", "O novo paciente foi adicionado com sucesso", "success");
+      setAddPacient(false);
+      loadData();
+    } catch (error) {
+      setSaving(false);
+      swal(
+        "Ops, algo deu errado",
+        "Não foi possível cadastrar o novo paciente",
+        "success"
+      );
+    }
+  }
+
   return (
-    <Page>
-      <Container>
-        <Page.Header>
-          <Page.Title>
-            <Breadcrumbs data={breadcrumbs} />
-            <h2>Pacientes</h2>
-          </Page.Title>
-        </Page.Header>
+    <>
+      <Page>
+        <Container>
+          <Page.Header>
+            <Page.Title>
+              <Breadcrumbs data={breadcrumbs} />
+              <h2>Pacientes</h2>
+            </Page.Title>
 
-        {loading && !data.length ? (
-          <>
-            <Loading container size={40} />
-          </>
-        ) : (
-          <Panel>
-            {loading && <Loading table size={40} />}
-            <Table shadowDisabled>
-              <thead>
-                <Table.Row>
-                  <Table.Column head>Nome</Table.Column>
+            <Page.Actions>
+              <Button onClick={() => setAddPacient(true)}>
+                Adicionar paciente
+              </Button>
+            </Page.Actions>
+          </Page.Header>
 
-                  <Table.Column head>E-mail</Table.Column>
+          {loading && !data.length ? (
+            <>
+              <Loading container size={40} />
+            </>
+          ) : (
+            <Panel>
+              {loading && <Loading table size={40} />}
+              <Table shadowDisabled>
+                <thead>
+                  <Table.Row>
+                    <Table.Column head>Nome</Table.Column>
 
-                  <Table.Column head />
-                </Table.Row>
-              </thead>
-              <tbody>
-                {data.map(user => (
-                  <Table.Row key={user.id}>
-                    <Table.Column large>{user.username}</Table.Column>
+                    <Table.Column head>E-mail</Table.Column>
 
-                    <Table.Column large>{user.email}</Table.Column>
-
-                    <Table.Column right>
-                      <Actions>
-                        <Button icon>
-                          <Link to={`/costumers/${user.id}/edit`}>
-                            <FaPencilAlt size={10} />
-                          </Link>
-                        </Button>
-
-                        <Button icon onClick={() => handleDelete(user.id)}>
-                          <FaTrashAlt size={10} />
-                        </Button>
-                      </Actions>
-                    </Table.Column>
+                    <Table.Column head />
                   </Table.Row>
-                ))}
-              </tbody>
-            </Table>
-          </Panel>
-        )}
+                </thead>
+                <tbody>
+                  {data.map(pacient => (
+                    <Table.Row key={pacient.id}>
+                      <Table.Column large>{pacient.user.username}</Table.Column>
 
-        <Pagination total={total} {...props} />
-      </Container>
-    </Page>
+                      <Table.Column large>{pacient.user.email}</Table.Column>
+
+                      <Table.Column right>
+                        <Actions>
+                          {/* <Button icon>
+                            <Link to={`/costumers/${pacient.id}/edit`}>
+                              <FaPencilAlt size={10} />
+                            </Link>
+                          </Button> */}
+
+                          <Button icon onClick={() => handleDelete(pacient.id)}>
+                            <FaTrashAlt size={10} />
+                          </Button>
+                        </Actions>
+                      </Table.Column>
+                    </Table.Row>
+                  ))}
+                </tbody>
+              </Table>
+            </Panel>
+          )}
+        </Container>
+      </Page>
+
+      {addPacient && (
+        <Modal title="Cadastrar novo paciente">
+          <Form onSubmit={handleAddPacient}>
+            <Form.Field>
+              <Form.Label>E-mail:</Form.Label>
+              <Form.Input
+                name="email"
+                placeholder="Digite o email do paciente"
+              />
+            </Form.Field>
+
+            <Buttons>
+              <Button text onClick={() => setAddPacient(false)}>
+                Fechar
+              </Button>
+
+              <Button type="submit" disabled={saving}>
+                {saving ? <Loading type="button" /> : "Adicionar"}
+              </Button>
+            </Buttons>
+          </Form>
+        </Modal>
+      )}
+    </>
   );
 }
 
